@@ -1,0 +1,22 @@
+<ion-view title="Other Industry Segment" id="page2" class=" ">
+    <ion-content padding="true" class="has-header">
+		 <button class="button button-positive button-block" modal-select="" ng-model="selectedIndustrySegment" options="industrySegmentsWithExclusion" modal-title="Select the closest industry segment">
+            Choose the closest industry segment 
+            <div class="option">
+                {{option}}
+            </div>
+        </button>
+        <h6>
+            {{selectedIndustrySegment}} 
+        </h6>
+        <div class="list">
+          <label class="item item-input">
+             <input type="text" ng-model="userIndustrySegment" placeholder="Enter your industry segment here">
+         </label>
+        </div>
+
+        <button class="button button-assertive button-block" ng-click="submit(selectedIndustrySegment, userIndustrySegment)">
+            Submit the selection
+        </button>
+    </ion-content>
+</ion-view>

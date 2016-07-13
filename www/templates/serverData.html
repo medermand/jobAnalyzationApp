@@ -1,0 +1,24 @@
+<ion-view title="Server Data" id="page5" style="background-color:#F7F5FD;" class=" ">
+  <ion-content padding="true" class="has-header">
+    <!--<ion-list ng-repeat="item in items" id="experience-list4" class=" ">-->
+      <!-- -->
+    <!--</ion-list>-->
+
+    <div class="card" ng-repeat="item in items">
+      <div class="item item-divider">
+        Data
+      </div>
+      <div class="item item-text-wrap">
+        <p>job family: {{item.jobFamily}}</p>
+        <p>sub job family: {{item.subJobFamily}}</p>
+        <p>experience: {{item.experience}}</p>
+        <p>industrySegment: {{item.industrySegment}}</p>
+        <p>industry segment other: {{item.industrySegmentOther}}</p>
+        <p>user industry segment: {{item.userIndustrySegment}}</p>
+        <p>salary: {{item.salary}}</p>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>

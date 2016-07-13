@@ -1,0 +1,11 @@
+/* Empty. Add your own CSS if you like */
+.done {
+	background-color: #4CAF50
+}
+
+.hashtag{
+  background-color: rgba(169, 176, 179, 0.18);
+  font-size: larger;
+  line-height: 2.0;
+  color: #727272;
+}

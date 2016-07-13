@@ -1,0 +1,8 @@
+<ion-view title="{{jobFamilyToSubmit.job}}" id="page3" class=" ">
+    <ion-content padding="true" class="has-header">
+        <ion-list ng-repeat="job in subFamily" id="jobFamilyDetail-list3" class=" ">
+           <!--  <ion-item id="jobFamilyDetail-list-item7" class="  ">{{job.job}}</ion-item> -->
+            <ion-radio ng-click="select(job)" ng-value="'A'">{{job.job}}</ion-radio>
+        </ion-list>
+    </ion-content>
+</ion-view>

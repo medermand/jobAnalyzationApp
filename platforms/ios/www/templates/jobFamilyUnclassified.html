@@ -1,0 +1,22 @@
+<ion-view title="Unclassified Job Family" id="page2" class=" ">
+    <ion-content padding="true" class="has-header">
+		 <button class="button button-positive button-block" modal-select="" ng-model="selectedJobFamily" options="jobFamilyNames" modal-title="Select the closest family job">
+            Choose the closest job family 
+            <div class="option">
+                {{option}}
+            </div>
+        </button>
+        <h6>
+            {{selectedJobFamily}} 
+        </h6>
+        <div class="list">
+          <label class="item item-input">
+             <input type="text" ng-model="userJobFamily" placeholder="Enter your job here">
+         </label>
+        </div>
+
+        <button class="button button-assertive button-block" ng-click="submit(selectedJobFamily, userJobFamily)">
+            Submit the selection
+        </button>
+    </ion-content>
+</ion-view>
