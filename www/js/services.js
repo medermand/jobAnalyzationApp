@@ -2,53 +2,202 @@ angular.module('starter.services', [])
   .factory('Job', function () {
     var getIndustrySegment = function () {
       var industrySegments = [
-        'Agriculture & Construction Machinery',
-        'Asset Management',
-        'Automotive Distributors',
-        'Automotive Manufacturers',
-        'Automotive Parts',
-        'Banking',
-        'Building Materials',
-        'Call Center',
-        'Car Lease',
-        'Conglomerates',
-        'Construction',
-        'Consumer Finance',
-        'Defence',
-        'Durable Goods',
-        'E- Commerce',
-        'Education',
-        'Electric, Electronics & Automation',
-        'Energy Distribution',
-        'Energy',
-        'Factoring',
-        'FMCG',
-        'General Chemical',
-        'General Insurance',
-        'General Retail',
-        'HighTechnology',
-        'HORECA',
-        'Industrial Machinery',
-        'Insurance Agencies',
-        'Investment',
-        'Leasing',
-        'Logistics',
-        'Medical Equipment',
-        'Metal',
-        'Mining',
-        'NGO',
-        'Oil & Gas',
-        'Other Financial Services',
-        'Packaging',
-        'Pension and Life Insurance',
-        'Pharmaceutical',
-        'Port',
-        'Professional Services',
-        'Property Management',
-        'Software',
-        'Textile Industry',
-        'Tyre Manufacturing',
-        'Other'
+        {
+          code: 'AE',
+          name: ' Agriculture & Construction Machinery'
+        },
+        {
+          code: 'AF',
+          name: 'Asset Management'
+        },
+        {
+          code: 'AG',
+          name: 'Automotive Distributors'
+        },
+        {
+          code: 'AH',
+          name: 'Automotive Manufacturers'
+        },
+        {
+          code: 'AJ',
+          name: 'Automotive Parts'
+        },
+        {
+          code: 'AK',
+          name: 'Banking'
+        },
+        {
+          code: 'AL',
+          name: 'Building Materials'
+        },
+        {
+          code: 'AM',
+          name: 'Call Center'
+        },
+        {
+          code: 'AN',
+          name: 'Car Lease'
+        },
+        {
+          code: 'AO',
+          name: 'Conglomerates'
+        },
+        {
+          code: 'AP',
+          name: 'Construction'
+        },
+        {
+          code: 'AQ',
+          name: 'Consumer Finance'
+        },
+        {
+          code: 'AR',
+          name: 'Defence'
+        },
+        {
+          code: 'AS',
+          name: 'Durable Goods'
+        },
+        {
+          code: 'AT',
+          name: 'E- Commerce'
+        },
+        {
+          code: 'AV',
+          name: 'Education'
+        },
+        {
+          code: 'AY',
+          name: 'Electric, Electronics & Automation'
+        },
+        {
+          code: 'AZ',
+          name: 'Energy Distribution'
+        },
+        {
+          code: 'BA',
+          name: 'Energy'
+        },
+        {
+          code: 'BB',
+          name: 'Factoring'
+        },
+        {
+          code: 'BC',
+          name: 'FMCG'
+        },
+        {
+          code: 'BD',
+          name: 'General Chemical'
+        },
+        {
+          code: 'BE',
+          name: 'General Insurance'
+        },
+        {
+          code: 'BF',
+          name: 'General Retail'
+        },
+        {
+          code: 'BG',
+          name: 'HighTechnology'
+        },
+        {
+          code: 'BH',
+          name: 'HORECA'
+        },
+        {
+          code: 'BJ',
+          name: 'Industrial Machinery'
+        },
+        {
+          code: 'BK',
+          name: 'Insurance Agencies'
+        },
+        {
+          code: 'BL',
+          name: 'Investment'
+        },
+        {
+          code: 'BM',
+          name: 'Leasing'
+        },
+        {
+          code: 'BN',
+          name: 'Logistics'
+        },
+        {
+          code: 'BO',
+          name: 'Medical Equipment'
+        },
+        {
+          code: 'BP',
+          name: 'Metal'
+        },
+        {
+          code: 'BQ',
+          name: 'Mining'
+        },
+        {
+          code: 'BR',
+          name: 'NGO'
+        },
+        {
+          code: 'BS',
+          name: 'Oil & Gas'
+        },
+        {
+          code: 'BT',
+          name: 'Other Financial Services'
+        },
+        {
+          code: 'BU',
+          name: 'Packaging'
+        },
+        {
+          code: 'BY',
+          name: 'Pension and Life Insurance'
+        },
+        {
+          code: 'BZ',
+          name: 'Pharmaceutical'
+        },
+        {
+          code: 'CA',
+          name: 'Port'
+        },
+        {
+          code: 'CB',
+          name: 'Professional Services'
+        },
+        {
+          code: 'CC',
+          name: 'Property Management'
+        },
+        {
+          code: 'CD',
+          name: 'Software'
+        },
+        {
+          code: 'CE',
+          name: 'Textile Industry'
+        },
+        {
+          code: 'CF',
+          name: 'Tyre Manufacturing'
+        },
+        {
+          code: 'AA',
+          name: 'All Companies'
+        },
+        {
+          code: 'AC',
+          name: 'Foreign Companies'
+        },
+        {
+          code: 'AD',
+          name: 'Local Companies'
+        }
       ]
       return industrySegments;
     }
@@ -633,10 +782,10 @@ angular.module('starter.services', [])
     }
 
 
-    var getJobFamilyWithName = function(jobFamilyName){
+    var getJobFamilyWithName = function (jobFamilyName) {
       var jobs = getJobFamily();
-      for(var i = 0; i < jobs.length; i++){
-        if(jobs[i].job == jobFamilyName){
+      for (var i = 0; i < jobs.length; i++) {
+        if (jobs[i].job == jobFamilyName) {
           return jobs[i];
         }
       }
@@ -650,7 +799,47 @@ angular.module('starter.services', [])
     }
   })
 
+//https://www.firebase.com/docs/web/libraries/ionic/guide.html
   .factory("Items", function ($firebaseArray) {
-    var itemsRef = new Firebase("https://cupidon.firebaseio.com/jobs");
+    var itemsRef = new Firebase("https://cupidon.firebaseio.com/AEASA9");
     return $firebaseArray(itemsRef);
   })
+
+  .factory("UserData", function ($firebaseArray) {
+
+    var getUserData = function (id) {
+      var link = "https://project-8734008834667461629.firebaseio.com/UserData/" + id;
+      var itemsRef = new Firebase(link);
+      return $firebaseArray(itemsRef);
+    }
+
+    return {
+      getUserData: getUserData,
+    }
+
+  })
+
+  .factory("ModelData", function ($firebaseArray, $ionicPopup) {
+
+    var getModelData = function (id, success_callback) {
+      var link = "https://project-8734008834667461629.firebaseio.com/ModelData/" + id;
+      var salaryRef = new Firebase(link);
+      salaryRef.on("value", function(snapshot){
+        if (snapshot.val() != null) {
+         success_callback(snapshot.val().averageSalary);
+        }else{
+          $ionicPopup.alert({
+              title: 'Error!',
+              template: 'The specifics that you have entered are not found in our Database'
+            });
+        }
+      })
+    }
+
+    return {
+      getModelData: getModelData,
+    }
+
+  })
+
+

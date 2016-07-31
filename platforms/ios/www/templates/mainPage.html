@@ -23,12 +23,12 @@
 
     <a ng-class="{done: isIndustrySegmentDone}" href="#/app/industrySegment" id="mainPage-button2"
        class=" button button-positive  button-block ">Industry Segment</a>
-    <p class="hashtag">{{industrySegmentToSubmit}}{{otherIndustrySegmentToSubmit}}{{userIndustrySegmentToSubmit}}</p>
+    <p class="hashtag">{{industrySegmentToSubmit.name}}{{otherIndustrySegmentToSubmit}}{{userIndustrySegmentToSubmit}}</p>
 
     <a ng-class="{done: isIndustrySegmentDone}" href="#/app/salary" id="mainPage-button2"
        class=" button button-positive  button-block ">Your Salary</a>
     <p class="hashtag">{{salaryToSubmit}}</p>
 
-    <button id="mainPage-button4" class=" button button-assertive  button-block " ng-click = "submit()">SUBMIT</button>
+    <button id="mainPage-button4" class=" button button-assertive  button-block " ng-click = "submit()">Compare My Salary</button>
   </ion-content>
 </ion-view>

@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services', 'ionic-modal-select'])
+angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.services', 'ionic-modal-select', 'highcharts-ng'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -138,6 +138,15 @@ angular.module('starter', ['ionic', 'firebase', 'starter.controllers', 'starter.
         }
       })
 
+      .state('app.chart', {
+        url: '/chart',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/chart.html',
+            controller: 'ChartCtrl'
+          }
+        }
+      })
 
     ;
 

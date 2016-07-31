@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-  .controller('MainPageCtrl', function ($scope, $state, $rootScope, $ionicPopup, Items, $stateParams, $ionicHistory) {
+  .controller('MainPageCtrl', function ($scope, $state, $rootScope, $ionicPopup, UserData, ModelData, $stateParams, $ionicHistory) {
 
 
     $scope.submit = function () {
@@ -35,22 +35,25 @@ angular.module('starter.controllers', [])
           template: 'Your Salary cannot be empty'
         });
       } else {
-        console.log('the code is ready to submit');
+
+        $rootScope.itemToSubmit = $rootScope.industrySegmentToSubmit.code +""+$rootScope.subJobFamilyToSubmit.code+""
+          + $rootScope.experienceToSubmit;
+
         if ($rootScope.industrySegmentToSubmit != null) {
-          Items.$add({
-            "jobFamily": $rootScope.jobFamilyToSubmit.job,
-            "subJobFamily": $rootScope.subJobFamilyToSubmit.job,
+          UserData.getUserData($rootScope.itemToSubmit).$add({
+            "jobFamily": $rootScope.jobFamilyToSubmit.code,
+            "subJobFamily": $rootScope.subJobFamilyToSubmit.code,
             "experience": $rootScope.experienceToSubmit,
-            "industrySegment": $rootScope.industrySegmentToSubmit,
+            "industrySegment": $rootScope.industrySegmentToSubmit.name,
             "industrySegmentOther": "",
             "userIndustrySegment": "",
             "salary": $rootScope.salaryToSubmit
           })
         }
         else {
-          Items.$add({
-            "jobFamily": $rootScope.jobFamilyToSubmit.job,
-            "subJobFamily": $rootScope.subJobFamilyToSubmit.job,
+          UserData.getUserData($rootScope.itemToSubmit).$add({
+            "jobFamily": $rootScope.jobFamilyToSubmit.code,
+            "subJobFamily": $rootScope.subJobFamilyToSubmit.code,
             "experience": $rootScope.experienceToSubmit,
             "industrySegment" : "",
             "industrySegmentOther": $rootScope.otherIndustrySegmentToSubmit,
@@ -59,19 +62,136 @@ angular.module('starter.controllers', [])
           })
         }
 
-        $rootScope.items = Items;
-        console.log($rootScope.items);
-        $state.go('app.serverData')
 
-        //here should be the submission code, connection with a server
+        ModelData.getModelData($rootScope.itemToSubmit, function(salary){
+            
+            if (salary == null) {
+              $ionicPopup.alert({
+              title: 'Error!',
+             template: 'The specifics that you have entered are not found in our Database'
+        });
+            }else{
+                  var data = getParsedNumber(salary);
+                $rootScope.graphDataY = {
+                  first: 0,
+                  second: 0,
+                  third: 0,
+                  fourth: 0,
+                  fifth: 0,
+                  sixth: 0
+                };
+
+                $rootScope.graphDataX = {
+                  first: 0.0,
+                  second: 0.0,
+                  third: 0.0,
+                  fourth: 0.0,
+                  fifth: 0.0,
+                  sixth: 0.0
+                };
+
+                var userSalary = parseInt($rootScope.salaryToSubmit);
+                var deviation50 = userSalary * 0.5;
+                var deviation25 = userSalary * 0.20;
+                
+                $rootScope.percentage = Math.round((userSalary/ (2 * data)) * 100);
+
+                //Y coordination of the graph
+                $rootScope.graphDataY.first = userSalary - deviation50;
+                $rootScope.graphDataY.second = userSalary - deviation25;
+                $rootScope.graphDataY.third = userSalary - userSalary * 0.1
+                $rootScope.graphDataY.fourth = userSalary;
+                $rootScope.graphDataY.fifth = userSalary + deviation25;
+                $rootScope.graphDataY.sixth = userSalary + deviation50;
+
+                //X coordination of the graph
+                $rootScope.graphDataX.first =   parseFloat((($rootScope.graphDataY.first/data) * 2.5).toFixed(2));
+                $rootScope.graphDataX.second =  parseFloat((($rootScope.graphDataY.second/data) * 2.5).toFixed(2));
+                $rootScope.graphDataX.third =   parseFloat((($rootScope.graphDataY.third/data) * 2.5).toFixed(2));
+                $rootScope.graphDataX.fourth =  parseFloat(((userSalary/data) * 2.5).toFixed(2));
+                $rootScope.graphDataX.fifth =   parseFloat((($rootScope.graphDataY.fifth/data) * 2.5).toFixed(2));
+                $rootScope.graphDataX.sixth =   parseFloat((($rootScope.graphDataY.sixth/data) * 2.5).toFixed(2));
+
+                console.log($rootScope.graphDataX);
+                console.log($rootScope.graphDataY);
+                $state.go('app.chart');
+                }
+            
+
+
+        })
+
+      }}
+    // $scope.submit = function(){
+    //   var data = 93000;
+
+    //   $rootScope.graphDataY = {
+    //           first: 0,
+    //           second: 0,
+    //           third: 0,
+    //           fourth: 0,
+    //           fifth: 0,
+    //           sixth: 0
+    //         };
+
+    //         $rootScope.graphDataX = {
+    //           first: 0.0,
+    //           second: 0.0,
+    //           third: 0.0,
+    //           fourth: 0.0,
+    //           fifth: 0.0,
+    //           sixth: 0.0
+    //         };
+
+    //         var userSalary = 140000;
+    //         var deviation50 = userSalary * 0.5;
+    //         var deviation25 = userSalary * 0.25;
+            
+
+    //         //Y coordination of the graph
+    //         $rootScope.graphDataY.first = userSalary - deviation50;
+    //         $rootScope.graphDataY.second = userSalary - deviation25;
+    //         $rootScope.graphDataY.third = userSalary - userSalary * 0.2
+    //         $rootScope.graphDataY.fourth = userSalary;
+    //         $rootScope.graphDataY.fifth = userSalary + deviation25;
+    //         $rootScope.graphDataY.sixth = userSalary + deviation50;
+
+    //         //X coordination of the graph
+    //         $rootScope.graphDataX.first =   parseFloat((($rootScope.graphDataY.first/data) * 2.5).toFixed(2));
+    //         $rootScope.graphDataX.second =  parseFloat((($rootScope.graphDataY.second/data) * 2.5).toFixed(2));
+    //         $rootScope.graphDataX.third =   parseFloat((($rootScope.graphDataY.third/data) * 2.5).toFixed(2));
+    //         $rootScope.graphDataX.fourth =  parseFloat(((userSalary/data) * 2.5).toFixed(2));
+    //         $rootScope.graphDataX.fifth =   parseFloat((($rootScope.graphDataY.fifth/data) * 2.5).toFixed(2));
+    //         $rootScope.graphDataX.sixth =   parseFloat((($rootScope.graphDataY.sixth/data) * 2.5).toFixed(2));
+
+    //         console.log($rootScope.graphDataX);
+    //         console.log($rootScope.graphDataY);
+    //         $state.go('app.chart');
+    // }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    var getParsedNumber = function(stringNumber){
+      var parsed = "";
+      for(var i = 0; i < stringNumber.length; i ++){
+        var letter = stringNumber.slice(i, i + 1);
+          if ( letter == ",") {
+            break;
+          }else{
+            if (letter != ".") {
+              parsed += letter;  
+            }
+          }
       }
+      return parseInt(parsed);
     }
   }
 )
 
 
-  .
-  controller('JobFamilyCtrl', function ($scope, $rootScope, $stateParams, $ionicHistory, $state, Job) {
+
+  .controller('JobFamilyCtrl', function ($scope, $rootScope, $stateParams, $ionicHistory, $state, Job) {
 
     $scope.jobFamilies = Job.getJobFamily;
 
@@ -81,7 +201,6 @@ angular.module('starter.controllers', [])
 
 
     $scope.select = function (jobFamily) {
-
       if (jobFamily.code == "XX") {
         $state.go('app.jobUnclassified');
       } else {
@@ -434,6 +553,65 @@ angular.module('starter.controllers', [])
     function isNumber(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);
     }
+  })
+
+  .controller('ChartCtrl', function($scope, $rootScope, $state){
+
+
+          $scope.config = {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Salary Comparison'
+        },
+        subtitle: {
+            text: 'paytrends.co'
+        },
+        xAxis: {
+            categories: ['0%', '20%', '40%', '60%', '80%', '100%']
+        },
+        yAxis: {
+            title: {
+                text: 'Salary'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value;
+                }
+            }
+        },
+        tooltip: {
+            crosshairs: false,
+            shared: false
+
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    radius: 4,
+                    lineColor: '#666666',
+                    lineWidth: 1
+                }
+            }
+        },
+        series: [{
+            name: 'Salary Trend',
+            marker: {
+                symbol: 'square'
+            },
+            data: [[$rootScope.graphDataX.first, $rootScope.graphDataY.first], [$rootScope.graphDataX.second,$rootScope.graphDataY.second], [$rootScope.graphDataX.third ,$rootScope.graphDataY.third],{
+                x: $rootScope.graphDataX.fourth,
+                y: $rootScope.graphDataY.fourth,
+                
+                marker: {
+                    symbol: 'url(img/star.png)'
+                }
+            }, [$rootScope.graphDataX.fifth,$rootScope.graphDataY.fifth], [$rootScope.graphDataX.sixth,$rootScope.graphDataY.sixth]]
+        }]
+    };
+
+
   })
 
 ;
